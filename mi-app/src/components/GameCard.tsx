@@ -8,7 +8,7 @@ function GameCard({ title, image }: Props) {
     <div className="game-card">
       <img className="game-card-image" src={image} alt={title}></img>
       <h2 style={{ color: "white" }}>{title}</h2>
-      <button>❤️</button>
+      <button className="button">❤️</button>
     </div>
   );
 }
