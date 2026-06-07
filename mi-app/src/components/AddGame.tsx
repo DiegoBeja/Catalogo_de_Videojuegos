@@ -33,6 +33,12 @@ function AddGame({ show, onClose, onAddGame }: Props) {
     onClose();
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImage(URL.createObjectURL(file));
+  };
+
   return (
     <Modal show={show} onHide={onClose} centered>
       <Modal.Header closeButton>
@@ -42,10 +48,10 @@ function AddGame({ show, onClose, onAddGame }: Props) {
       <Form noValidate onSubmit={handleSubmit}>
         <Modal.Body>
           <Form.Group className="mb-3" controlId="gameTitle">
-            <Form.Label>Título</Form.Label>
+            <Form.Label>Title</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Nombre del juego"
+              placeholder="Name of the game"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               isInvalid={validated && !title.trim()}
@@ -56,12 +62,10 @@ function AddGame({ show, onClose, onAddGame }: Props) {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="gameImage">
-            <Form.Label>URL de la imagen</Form.Label>
+            <Form.Label>Image</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="/assets/mi-imagen.jpg o https://..."
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
+              type="file"
+              onChange={handleImageChange}
               isInvalid={validated && !image.trim()}
             />
             <Form.Control.Feedback type="invalid">

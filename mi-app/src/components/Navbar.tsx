@@ -3,6 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useState } from "react";
 import AddGame from "./AddGame";
+import { Link } from "react-router-dom";
 
 type Props = {
   onAddGame?: (game: { title: string; image: string }) => void;
