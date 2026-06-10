@@ -1,21 +1,28 @@
-import GameGrid from "./GameGrid";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function NavbarProfile() {
-  const [games, setGames] = useState([
+  const games = [
     { title: "GTA V", image: "/assets/gta5.jpg" },
     { title: "COD", image: "/assets/cod.jpg" },
     { title: "Tomb Raider", image: "/assets/tombraider.jpg" },
-  ]);
+  ];
+
+  const stats = [
+    { label: "Games Played", value: 184 },
+    { label: "Games Completed", value: 21 },
+    { label: "Hours", value: 1040 },
+  ];
 
   return (
     <>
-      <div>
-        <img
-          src="/assets/favicon.svg"
-          alt="Logo"
-          style={{ height: 40, marginRight: 16 }}
-        />
+      <div className="profile-logo">
+        <Link to={"/"}>
+          <img
+            src="/assets/logo.png"
+            alt="Logo"
+            style={{ height: 50, marginRight: 16 }}
+          />
+        </Link>
       </div>
 
       <div className="profile">
@@ -27,14 +34,26 @@ function NavbarProfile() {
           />
           <h3>Diego Bejarano</h3>
           <div className="profile-stats">
-            <h6>Games Played</h6>
-            <h6>Games Completed</h6>
-            <h6>Hours</h6>
+            {stats.map((stat) => (
+              <div key={stat.label} className="stat-card">
+                <div className="stat-number">{stat.value}</div>
+                <div className="stat-label">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="profile-played-games">
           <h2>Played Games</h2>
+          <div>
+            {games.map((game) => (
+              <img
+                className="profile-games-played-card-image"
+                key={game.title}
+                src={game.image}
+              ></img>
+            ))}
+          </div>
         </div>
 
         <div className="favorite-games-section">

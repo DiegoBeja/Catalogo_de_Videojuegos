@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     path: "/Profile",
     element: <Profile />,
   },
-  { path: "/", element: <Profile /> },
+  { path: "/", element: <App /> },
 ]);
 
 createRoot(document.getElementById("root")!).render(

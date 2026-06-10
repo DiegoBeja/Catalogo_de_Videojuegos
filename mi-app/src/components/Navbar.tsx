@@ -17,11 +17,14 @@ function Navbar({ onAddGame }: Props) {
       style={{ background: "#1c1f2a", padding: "10px 16px" }}
       className="d-flex align-items-center"
     >
-      <img
-        src="/assets/favicon.svg"
-        alt="Logo"
-        style={{ height: 40, marginRight: 16 }}
-      />
+      <Link to={"/"}>
+        <img
+          src="/assets/logo.png"
+          alt="Logo"
+          style={{ height: 50, marginRight: 16 }}
+        />
+      </Link>
+
       <Form style={{ background: "transparent", flex: 1 }}>
         <Row>
           <Col xs="auto">
@@ -33,6 +36,27 @@ function Navbar({ onAddGame }: Props) {
           </Col>
         </Row>
       </Form>
+      <Link
+        to="/Profile"
+        style={{
+          width: 42,
+          height: 42,
+          borderRadius: "50%",
+          overflow: "hidden",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginRight: 10,
+          border: "1px solid transparent",
+          textDecoration: "none",
+        }}
+      >
+        <img
+          src="/assets/images.jpg"
+          alt="Perfil"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </Link>
       <button
         className="button"
         onClick={() => {
@@ -41,6 +65,7 @@ function Navbar({ onAddGame }: Props) {
       >
         Add
       </button>
+
       {isOpen && (
         <AddGame
           show={isOpen}

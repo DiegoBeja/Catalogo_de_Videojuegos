@@ -54,26 +54,38 @@ html, body{
     background: 0,0,0,0.5;
 }
 
-.profile{
+.profile {
     display: grid;
     grid-template-columns: 1fr 320px;
+    grid-template-areas:
+        "info played"
+        "favorite played";
+    gap: 18px 48px;
+    align-items: start;
+    padding: 16px;
+    max-width: 1080px;
+    margin: 0 auto;
 }
 
-.profile-info{
+.profile-logo {
+    padding: 14px 16px 0;
+}
+
+.profile-info {
+    grid-area: info;
     display: flex;
     align-items: center;
+    gap: 16px;
 }
 
-.profile-stats{
-    display: flex;
-    gap: 8px;
-    margin-left: auto;
-}
-
-.profile-played-games{
-    grid-column: 2;
-    margin-left: auto;
+.profile-played-games {
+    grid-area: played;
     padding-right: 10px;
+    padding-left: 120px;
+}
+
+.favorite-games-section {
+    grid-area: favorite;
 }
 
 .favorite-games {
@@ -88,6 +100,48 @@ html, body{
     height: 100px;
     object-fit: cover;
     border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
-       
+
+.profile-games-played-card-image{
+    display: block;
+    margin-bottom: 10px;
+    width: 125px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 10px; 
+}
+
+.profile-nav{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}     
+
+.profile-stats{
+    display: flex;
+    gap: 24px;
+    margin-left: auto;
+    align-items: flex-start;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 90px;
+}
+
+.stat-number {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
