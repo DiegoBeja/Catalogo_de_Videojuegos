@@ -15,6 +15,21 @@ html, body{
     background: #2e3646;
     border-radius: 10px;
     overflow: hidden;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.game-card-title {
+    color: white;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    margin: 12px 10px 8px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-align: center;
 }
 
 .parent {
@@ -43,6 +58,11 @@ html, body{
     border-radius: 7px;
     margin-bottom: 10px;
     margin-left: 10px;
+}
+
+.game-card .button {
+    align-self: flex-start;
+    width: auto;
 }
 
 .game-form{
