@@ -13,6 +13,8 @@ function GameGrid() {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [games, setGames] = useState<Game[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMorePages, setHasMorePages] = useState(true);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -20,10 +22,13 @@ function GameGrid() {
 
       try {
         const response = await fetch(
-          `https://api.rawg.io/api/games?key=${apiKey}`,
+          `https://api.rawg.io/api/games?key=${apiKey}&page=${page}`,
         );
         const data = await response.json();
-        setGames(data.results ?? []);
+        if (data.next == null) {
+          setHasMorePages(false);
+        }
+        setGames((prev) => [...prev, ...(data.results ?? [])]);
       } catch (error: any) {
         setError(error);
       } finally {
@@ -32,32 +37,41 @@ function GameGrid() {
     };
 
     fetchGames();
-  }, []);
 
-  if (isLoading) {
-    return (
-      <div>
-        <h2>Loading...</h2>
-      </div>
-    );
-  }
-
-  if (error) {
-    return <div>Todo salio mal</div>;
-  }
+    const handleScroll = () => {
+      const nearBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 150;
+      if (nearBottom && !isLoading && hasMorePages) {
+        setPage((prev) => prev + 1);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [page]);
 
   return (
     <>
-      <h1>Juegos</h1>
-      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-        {games.map((game) => (
-          <GameCard
-            key={game.id}
-            title={game.name}
-            image={game.background_image ?? ""}
-          />
-        ))}
-      </div>
+      <h1>Games</h1>
+      {isLoading && (
+        <div>
+          <h2>Loading...</h2>
+        </div>
+      )}
+
+      {error && <div>Todo salio mal</div>}
+
+      {games.length > 0 && (
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          {games.map((game) => (
+            <GameCard
+              key={game.id}
+              title={game.name}
+              image={game.background_image ?? ""}
+            />
+          ))}
+        </div>
+      )}
     </>
   );
 }

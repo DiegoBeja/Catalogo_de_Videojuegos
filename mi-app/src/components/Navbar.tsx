@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import AddGame from "./AddGame";
 import { Link } from "react-router-dom";
 
@@ -9,8 +9,29 @@ type Props = {
   onAddGame?: (game: { title: string; image: string }) => void;
 };
 
+const apiKey = "ab2ad7cda2c14f3a8ee172f798da405e";
+
 function Navbar({ onAddGame }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const debounceRef = useRef<number | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const q = e.target.value;
+    setQuery(q);
+    if (debounceRef.current) window.clearTimeout(debounceRef.current);
+    debounceRef.current = window.setTimeout(async () => {
+      if (!q) {
+        setSuggestions([]);
+        return;
+      }
+      const url = `https://api.rawg.io/api/games?key=${apiKey}&search=${encodeURIComponent(q)}&page_size=8`;
+      const res = await fetch(url);
+      const data = await res.json();
+      setSuggestions(data.results ?? []);
+    }, 300);
+  };
 
   return (
     <nav
@@ -24,15 +45,37 @@ function Navbar({ onAddGame }: Props) {
           style={{ height: 50, marginRight: 16 }}
         />
       </Link>
-
       <Form style={{ background: "transparent", flex: 1 }}>
         <Row>
-          <Col xs="auto">
-            <Form.Control
-              type="text"
-              placeholder="Search"
-              style={{ width: "290%" }}
-            />
+          <Col>
+            <div className="search-box" style={{ position: "relative" }}>
+              <Form.Control
+                type="text"
+                placeholder="Search"
+                value={query}
+                onChange={handleChange}
+                aria-label="Search games"
+                autoComplete="off"
+              />
+
+              {query.trim() !== "" && suggestions.length > 0 && (
+                <ul className="suggestions-dropdown">
+                  {suggestions.map((s) => (
+                    <li
+                      key={s.id}
+                      onMouseDown={(e) => {
+                        // use onMouseDown to avoid losing focus before click
+                        e.preventDefault();
+                        setQuery(s.name);
+                        setSuggestions([]);
+                      }}
+                    >
+                      {s.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </Col>
         </Row>
       </Form>
@@ -65,7 +108,6 @@ function Navbar({ onAddGame }: Props) {
       >
         Add
       </button>
-
       {isOpen && (
         <AddGame
           show={isOpen}

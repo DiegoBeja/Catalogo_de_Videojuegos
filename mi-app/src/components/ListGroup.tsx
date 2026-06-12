@@ -14,7 +14,7 @@ function ListGroup() {
 
   return (
     <>
-      <h1>Generos</h1>
+      <h1>Genres</h1>
       {message}
       <ul className="list-group">
         {items.map((item, index) => (
