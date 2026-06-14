@@ -15,16 +15,22 @@ function App() {
     setGames((prev) => [...prev, game]);
   };
 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (query: string) => {
+    setSearchTerm(query);
+  };
+
   return (
     <div className="parent">
       <div className="div1">
-        <Navbar onAddGame={handleAddGame} />
+        <Navbar onAddGame={handleAddGame} onSearch={handleSearch} />
       </div>
       <div className="div2">
         <ListGroup />
       </div>
       <div className="div3">
-        <GameGrid games={games} />
+        <GameGrid searchTerm={searchTerm} />
       </div>
     </div>
   );

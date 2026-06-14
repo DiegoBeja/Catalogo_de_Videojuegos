@@ -9,7 +9,11 @@ type Game = {
   background_image: string | null;
 };
 
-function GameGrid() {
+type Props = {
+  searchTerm: string;
+};
+
+function GameGrid({ searchTerm }: Props) {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [games, setGames] = useState<Game[]>([]);
@@ -22,13 +26,13 @@ function GameGrid() {
 
       try {
         const response = await fetch(
-          `https://api.rawg.io/api/games?key=${apiKey}&page=${page}`,
+          `https://api.rawg.io/api/games?key=${apiKey}&page=${page}&search=${encodeURIComponent(searchTerm)}`,
         );
         const data = await response.json();
         if (data.next == null) {
           setHasMorePages(false);
         }
-        setGames((prev) => [...prev, ...(data.results ?? [])]);
+        setGames(data.results ?? []);
       } catch (error: any) {
         setError(error);
       } finally {
@@ -48,7 +52,7 @@ function GameGrid() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [page]);
+  }, [page, searchTerm]); // ✅ Cuando cambia searchTerm, re-ejecuta el fetch
 
   return (
     <>

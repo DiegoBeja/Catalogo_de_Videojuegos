@@ -7,15 +7,17 @@ import { Link } from "react-router-dom";
 
 type Props = {
   onAddGame?: (game: { title: string; image: string }) => void;
+  onSearch: (query: string) => any;
 };
 
 const apiKey = "ab2ad7cda2c14f3a8ee172f798da405e";
 
-function Navbar({ onAddGame }: Props) {
+function Navbar({ onAddGame, onSearch }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const debounceRef = useRef<number | null>(null);
+  const [inputSearch, setInputSearch] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const q = e.target.value;
@@ -45,7 +47,14 @@ function Navbar({ onAddGame }: Props) {
           style={{ height: 50, marginRight: 16 }}
         />
       </Link>
-      <Form style={{ background: "transparent", flex: 1 }}>
+      <Form
+        style={{ background: "transparent", flex: 1 }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSearch(query);
+          setSuggestions([]);
+        }}
+      >
         <Row>
           <Col>
             <div className="search-box" style={{ position: "relative" }}>
