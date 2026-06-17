@@ -21,16 +21,22 @@ function App() {
     setSearchTerm(query);
   };
 
+  const [genresList, setGenresList] = useState("");
+
+  const handleGenres = (genre: string) => {
+    setGenresList(genre);
+  };
+
   return (
     <div className="parent">
       <div className="div1">
         <Navbar onAddGame={handleAddGame} onSearch={handleSearch} />
       </div>
       <div className="div2">
-        <ListGroup />
+        <ListGroup onGenreSelect={handleGenres} />
       </div>
       <div className="div3">
-        <GameGrid searchTerm={searchTerm} />
+        <GameGrid searchTerm={searchTerm} selectedGenre={genresList} />
       </div>
     </div>
   );

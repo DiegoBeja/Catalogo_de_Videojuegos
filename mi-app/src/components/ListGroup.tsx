@@ -1,16 +1,34 @@
 import { useState } from "react";
 
-function ListGroup() {
+type Props = {
+  onGenreSelect: (genre: string) => void;
+};
+
+function ListGroup({ onGenreSelect }: Props) {
   const items = [
-    "Accion",
-    "Aventura",
+    "Action",
+    "Adventure",
     "Shooters",
     "Hack and slash",
     "Rol",
-    "Estrategia",
+    "Strategy",
+    "Sports",
+    "Puzzle",
+    "Horror",
+    "Racing",
+    "MOBA",
+    "Battle Royal",
+    "Casual",
+    "Plataformer",
+    "Narrative",
   ];
   const message = items.length == 0 && <p>Items no found</p>;
   const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const handleChange = (index: number, genre: string) => {
+    setSelectedIndex(index);
+    onGenreSelect(genre);
+  };
 
   return (
     <>
@@ -27,7 +45,7 @@ function ListGroup() {
             }
             key={item}
             onClick={() => {
-              setSelectedIndex(index);
+              handleChange(index, item.toLowerCase());
             }}
           >
             {item}
