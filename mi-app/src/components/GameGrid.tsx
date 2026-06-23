@@ -75,6 +75,7 @@ function GameGrid({ searchTerm, selectedGenre }: Props) {
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {games.map((game) => (
             <GameCard
+              id={game.id}
               key={game.id}
               title={game.name}
               image={game.background_image ?? ""}

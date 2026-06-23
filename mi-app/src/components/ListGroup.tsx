@@ -26,8 +26,13 @@ function ListGroup({ onGenreSelect }: Props) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   const handleChange = (index: number, genre: string) => {
-    setSelectedIndex(index);
-    onGenreSelect(genre);
+    if (selectedIndex === index) {
+      setSelectedIndex(-1);
+      onGenreSelect("");
+    } else {
+      setSelectedIndex(index);
+      onGenreSelect(genre);
+    }
   };
 
   return (
