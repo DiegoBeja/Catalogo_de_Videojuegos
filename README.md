@@ -8,6 +8,8 @@ Catalogo de videojuegos es una aplicación web desarrollada con React y TypeScri
 - Agregar y eliminar juego a favoritos
 - Almacenar favoritos en localstorage
 
+![Página principal de la web](mi-app\public\assets\imagenWeb.png)
+
 ## Instalación
 
 1. Clona el repositorio.

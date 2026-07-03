@@ -192,3 +192,105 @@ html, body{
     text-transform: uppercase;
     letter-spacing: 0.08em;
 }
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-card {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 400px;
+  transition: all 0.3s ease;
+}
+
+.login-card h2 {
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.form-group input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+  background-color: #f9fafb;
+}
+
+.form-group input:focus {
+  border-color: #4f46e5; /* Color azul/morado moderno */
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+.toggle-text {
+  font-size: 0.9rem;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.toggle-link {
+  font-weight: 600;
+  color: #4f46e5 !important; /* Color que combina con el botón */
+  text-decoration: none !important;
+  margin-left: 0.3rem;
+  transition: color 0.2s ease;
+}
+
+.toggle-link:hover {
+  color: #3730a3 !important;
+  text-decoration: underline !important;
+}
+
+.submit-btn {
+  background-color: #4f46e5;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 0.5rem;
+}
+
+.submit-btn:hover {
+  background-color: #4338ca;
+}
+
+/* Efecto de presión en el botón */
+.submit-btn:active {
+  transform: scale(0.98);
+}
